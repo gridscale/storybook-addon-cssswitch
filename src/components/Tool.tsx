@@ -1,40 +1,131 @@
-import React, { memo, useCallback, useEffect } from "react";
-import { useGlobals, type API } from "storybook/internal/manager-api";
-import { IconButton } from "storybook/internal/components";
+import React, { memo, useCallback, useEffect, Fragment, useState } from "react";
+import { useGlobals, useParameter, type API } from "storybook/internal/manager-api";
+import { IconButton, TooltipLinkList, WithTooltip } from "storybook/internal/components";
 import { ADDON_ID, KEY, TOOL_ID } from "../constants";
-import { LightningIcon } from "@storybook/icons";
+import { CircleIcon, SunIcon } from "@storybook/icons";
+import { Config, Css, CssMap, GlobalStateUpdate } from './../types';
+
+const DEFAULT_STYLES: CssMap = {
+  light: { name: 'light', value: 'variables_light.css', color: 'white'},
+  dark: { name: 'dark', value: 'variables_dark.css', color: 'black' },
+
+}
+
+type Link = Parameters<typeof TooltipLinkList>['0']['links'][0];
 
 export const Tool = memo(function MyAddonSelector({ api }: { api: API }) {
+  const config = useParameter<Config>(KEY);
+  const { options = DEFAULT_STYLES } = config || {};
   const [globals, updateGlobals, storyGlobals] = useGlobals();
 
-  const isLocked = KEY in storyGlobals;
-  const isActive = !!globals[KEY];
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
-  const toggle = useCallback(() => {
-    updateGlobals({
-      [KEY]: !isActive,
-    });
-  }, [isActive]);
+  const data = globals[KEY] || options[Object.keys(options)[0]];
+  const cssName: string = data.name;
 
-  useEffect(() => {
-    api.setAddonShortcut(ADDON_ID, {
-      label: "Toggle Measure [O]",
-      defaultShortcut: ["O"],
-      actionName: "outline",
-      showInMenu: false,
-      action: toggle,
-    });
-  }, [toggle, api]);
+  const item: Css = options[cssName];
+  const isLocked = !!storyGlobals?.[KEY];
+  const length = Object.keys(options).length;
+
+  if (!globals[KEY]) {
+    // initially set the first item
+    // TODO: no good way.. better would be if the decorator knows the default
+    window.setTimeout(() => {
+      updateGlobals({
+        [KEY]: {
+          value: item.name,
+        }
+      });
+
+    }, 100)
+  }
 
   return (
-    <IconButton
-      key={TOOL_ID}
-      active={isActive}
-      disabled={isLocked}
-      title="Enable my addon"
-      onClick={toggle}
-    >
-      <LightningIcon />
-    </IconButton>
+    <Pure
+      {...{
+        length,
+        cssMap: options,
+        item,
+        updateGlobals,
+        cssName,
+        setIsTooltipVisible,
+        isLocked,
+        isTooltipVisible,
+      }}
+    />
+  );
+});
+
+
+  interface PureProps {
+    length: number;
+    cssMap: CssMap;
+    item: Css | undefined;
+    updateGlobals: ReturnType<typeof useGlobals>['1'];
+    cssName: string | undefined;
+    setIsTooltipVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    isLocked: boolean;
+    isTooltipVisible: boolean;
+  };
+
+  const Pure = memo(function PureTool(props: PureProps) {
+  const {
+    item,
+    length,
+    updateGlobals,
+    setIsTooltipVisible,
+    cssMap,
+    cssName,
+    isLocked,
+    isTooltipVisible,
+  } = props;
+
+  const update = useCallback(
+    (input: GlobalStateUpdate) => {
+      updateGlobals({
+        [KEY]: input,
+      });
+    },
+    [updateGlobals]
+  );
+
+  return (
+    <Fragment>
+      {length > 0 ? (
+        <WithTooltip
+          key="css"
+          placement="top"
+          closeOnOutsideClick
+          tooltip={({ onHide }) => {
+            return (
+              <TooltipLinkList
+                links={[
+                  ...Object.entries(cssMap).map<Link>(([k, value]) => ({
+                    id: k,
+                    title: value.name,
+                    icon: <CircleIcon color={value?.color || 'grey'} />,
+                    active: k === cssName,
+                    onClick: () => {
+                      update({ value: k });
+                      onHide();
+                    },
+                  })),
+                ].flat()}
+              />
+            );
+          }}
+          onVisibleChange={setIsTooltipVisible}
+        >
+          <IconButton
+            disabled={isLocked}
+            key="css"
+            title="Switch CSS"
+            active={!!item || isTooltipVisible}
+          >
+            <SunIcon />
+          </IconButton>
+        </WithTooltip>
+      ) : null}
+    </Fragment>
   );
 });
