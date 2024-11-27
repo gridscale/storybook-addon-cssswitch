@@ -1,17 +1,17 @@
 {
-  "name": "storybook-addon-kit",
+  "name": "storybook-addon-cssswitch",
   "version": "0.0.0",
-  "description": "everything you need to build a Storybook addon",
+  "description": "Allows switching between CSS files in the story previews",
   "keywords": [
-    "storybook-addons"
+    "css", "switch", "theme", "darkmode", "storybook-addons"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/storybookjs/storybook-addon-kit"
+    "url": "https://github.com/gridscale/storybook-addon-cssswitch"
   },
   "type": "module",
   "license": "MIT",
-  "author": "package-author",
+  "author": "Jan Stuhlmann <jan@gridscale.io>",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -34,7 +34,6 @@
     "*.d.ts"
   ],
   "scripts": {
-    "postinstall": "node scripts/welcome.js",
     "build": "tsup",
     "build:watch": "npm run build -- --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -98,9 +97,9 @@
     ]
   },
   "storybook": {
-    "displayName": "Addon Kit",
+    "displayName": "CSS Switch",
     "supportedFrameworks": [
-      "supported-frameworks"
+      "react", "vue", "angular", "web-components", "ember", "html", "svelte", "preact", "react-native"
     ],
     "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
   }
