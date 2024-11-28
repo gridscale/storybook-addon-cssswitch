@@ -8,7 +8,7 @@ When switching the CSS files, a `<link>` tag is dynamically added/modified withi
 First, install the package.
 
 ```sh
-npm install --save-dev storybook-addon-cssswitch
+npm install --save-dev @gridscale/storybook-addon-cssswitch
 ```
 
 Then, register it as an addon in `.storybook/main.js`.
