@@ -16,7 +16,7 @@ addons.register(ADDON_ID, (api) => {
     type: types.TOOL,
     title: "CSS Switcher",
     match: ({ viewMode, tabId }) =>
-      !!((viewMode && viewMode.match(/^(story)$/)) || tabId === TAB_ID),
+      !!((viewMode && viewMode.match(/^(story|docs)$/)) || tabId === TAB_ID),
     render: () => <Tool api={api} />,
   });
 });

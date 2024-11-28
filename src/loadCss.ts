@@ -28,16 +28,13 @@ export const loadCss = (
     cssToLoad = options[Object.keys(options)[0]];
   }
 
-  const canvas = context.canvasElement as ParentNode;
-
   // Is the addon being used in the docs panel
   const isInDocs = context.viewMode === "docs";
 
   useEffect(() => {
-    if (!isInDocs) {
-      addStylesheetElement(canvas, cssToLoad);
-    }
-  }, [cssToLoad, isInDocs]);
+    const canvas = context.canvasElement as ParentNode;
+    addStylesheetElement(canvas, cssToLoad);
+  }, [cssToLoad, isInDocs, context]);
 
   return StoryFn();
 };
@@ -46,7 +43,6 @@ export const loadCss = (
  * This will handle the right <link> element to be present in the iframes  header
  */
 function addStylesheetElement(canvas: ParentNode, cssToLoad: Css) {
-
   (canvas as HTMLElement).style.background = cssToLoad.backgroundColor;
 
   const head = canvas?.ownerDocument?.head;
