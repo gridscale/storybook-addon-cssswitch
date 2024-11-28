@@ -7,6 +7,6 @@ export const KEY = `cssswitch`;
 
 // just to have something if no options given - we don't want to crash
 export const DEFAULT_STYLES: CssMap = {
-  light: { name: 'light', value: 'variables_light.css', color: 'white' },
-  dark: { name: 'dark', value: 'variables_dark.css', color: 'black' },
+  light: { name: 'light', value: 'variables_light.css', backgroundColor: 'white' },
+  dark: { name: 'dark', value: 'variables_dark.css', backgroundColor: 'black' },
 }

@@ -17,7 +17,7 @@ export const Tool = memo(function MyAddonSelector({ api }: { api: API }) {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
   const data = globals[KEY] || options[Object.keys(options)[0]];
-  const cssName: string = data.name;
+  const cssName: string = data.value;
 
   const item: Css = options[cssName];
   const isLocked = !!storyGlobals?.[KEY];
@@ -87,7 +87,7 @@ export const Tool = memo(function MyAddonSelector({ api }: { api: API }) {
                   ...Object.entries(cssMap).map<Link>(([k, value]) => ({
                     id: k,
                     title: value.name,
-                    icon: <CircleIcon color={value?.color || 'grey'} />,
+                    icon: <CircleIcon color={value?.backgroundColor || 'grey'} />,
                     active: k === cssName,
                     onClick: () => {
                       update({ value: k });

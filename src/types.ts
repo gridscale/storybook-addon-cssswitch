@@ -2,7 +2,7 @@
 export interface Css {
   name: string;
   value: string;
-  color: string;
+  backgroundColor: string;
 }
 
 export type CssMap = Record<string, Css>;

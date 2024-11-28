@@ -46,6 +46,9 @@ export const loadCss = (
  * This will handle the right <link> element to be present in the iframes  header
  */
 function addStylesheetElement(canvas: ParentNode, cssToLoad: Css) {
+
+  (canvas as HTMLElement).style.background = cssToLoad.backgroundColor;
+
   const head = canvas?.ownerDocument?.head;
   if (head) {
     // search for previously appended css and remove it
