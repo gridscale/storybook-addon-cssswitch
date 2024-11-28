@@ -1,7 +1,3 @@
-export interface Result {
-  divs: DOMRect[];
-  styled: DOMRect[];
-}
 
 export interface Css {
   name: string;
