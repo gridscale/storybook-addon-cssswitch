@@ -1,3 +1,15 @@
+# v0.0.2 (Thu Nov 28 2024)
+
+#### ⚠️ Pushed to `main`
+
+- also provide the addon in docs (jan@gridscale.io)
+
+#### Authors: 1
+
+- Jan Stuhlmann (jan@gridscale.io)
+
+---
+
 # v0.0.1 (Thu Nov 28 2024)
 
 #### ⚠️ Pushed to `main`
