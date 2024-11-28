@@ -1,15 +1,11 @@
 import React, { memo, useCallback, useEffect, Fragment, useState } from "react";
 import { useGlobals, useParameter, type API } from "storybook/internal/manager-api";
 import { IconButton, TooltipLinkList, WithTooltip } from "storybook/internal/components";
-import { ADDON_ID, KEY, TOOL_ID } from "../constants";
+import { DEFAULT_STYLES, KEY } from "../constants";
 import { CircleIcon, SunIcon } from "@storybook/icons";
 import { Config, Css, CssMap, GlobalStateUpdate } from './../types';
 
-const DEFAULT_STYLES: CssMap = {
-  light: { name: 'light', value: 'variables_light.css', color: 'white'},
-  dark: { name: 'dark', value: 'variables_dark.css', color: 'black' },
 
-}
 
 type Link = Parameters<typeof TooltipLinkList>['0']['links'][0];
 
@@ -27,18 +23,6 @@ export const Tool = memo(function MyAddonSelector({ api }: { api: API }) {
   const isLocked = !!storyGlobals?.[KEY];
   const length = Object.keys(options).length;
 
-  if (!globals[KEY]) {
-    // initially set the first item
-    // TODO: no good way.. better would be if the decorator knows the default
-    window.setTimeout(() => {
-      updateGlobals({
-        [KEY]: {
-          value: item.name,
-        }
-      });
-
-    }, 100)
-  }
 
   return (
     <Pure
