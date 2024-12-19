@@ -1,6 +1,6 @@
 {
   "name": "@gridscale/storybook-addon-cssswitch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Allows switching between CSS files in the story previews",
   "keywords": [
     "appearance",
