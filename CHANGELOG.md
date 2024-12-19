@@ -1,3 +1,15 @@
+# v0.0.3 (Thu Dec 19 2024)
+
+#### ⚠️ Pushed to `main`
+
+- introduce a background color ([@JanST123](https://github.com/JanST123))
+
+#### Authors: 1
+
+- Jan ([@JanST123](https://github.com/JanST123))
+
+---
+
 # v0.0.2 (Thu Nov 28 2024)
 
 #### ⚠️ Pushed to `main`
