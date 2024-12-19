@@ -87,7 +87,7 @@ export const Tool = memo(function MyAddonSelector({ api }: { api: API }) {
                   ...Object.entries(cssMap).map<Link>(([k, value]) => ({
                     id: k,
                     title: value.name,
-                    icon: <CircleIcon color={value?.backgroundColor || 'grey'} />,
+                    icon: <CircleIcon color={value?.iconColor || value?.backgroundColor || 'grey'} />,
                     active: k === cssName,
                     onClick: () => {
                       update({ value: k });

@@ -3,6 +3,7 @@ export interface Css {
   name: string;
   value: string;
   backgroundColor: string;
+  iconColor?: string;
 }
 
 export type CssMap = Record<string, Css>;

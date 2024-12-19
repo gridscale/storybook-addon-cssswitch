@@ -33,9 +33,14 @@ export default config;
 ## Usage
 
 The primary way to use this addon is to define the `cssswitch` parameter in the preview.ts file. In the option you define
+
 `name` the identifier of the CSS (displayed in the dropdown)
+
 `value` the URL of the CSS (must be available on runtime)
-`backgroundColor` a background color which will be applied to the story preview when this css is loaded and is also used for the icon in the dropdown
+
+`backgroundColor` a background color which will be applied to the story preview when this css is loaded and is also used for the icon in the dropdown if no `iconColor` given
+
+`iconColor` an optional icon color used for the icon in the dropdown
 
 ```js
 // preview.ts
